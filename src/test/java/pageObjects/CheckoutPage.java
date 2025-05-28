@@ -1,79 +1,114 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class CheckoutPage {
-    //TODO - probably move these to a seperate file
-    public String mainPageUrl ="https://www.demoshop24.com/index.php?route=common/home";
-    public String shoppingCartPageUrl = "https://www.demoshop24.com/index.php?route=checkout/cart";
-    public String checkoutPageUrl = "https://www.demoshop24.com/index.php?route=checkout/checkout";
 
-    public CheckoutPage(WebDriver driver) {
+public class CheckoutPage {
+    public String checkoutPageUrl = "https://www.demoshop24.com/index.php?route=checkout/checkout";
+    public CheckoutPage(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
 
-    //maybe move navbar to seperate file?
-    //not a big fan of navigating via xpath and text, but I think that's the only distinguishing thing here.
-    // I don't want to do like path[5] as I believe the order is more likely to change than essential text.
-    //--------------------------
-    // Navbar
-    @FindBy (xpath = "//nav[@id='top']//span[text()='Shopping Cart']")
-    private WebElement navbarShoppingCartButton;
-    @FindBy (xpath = "//nav[@id='top']//span[text()='Checkout']")
-    private WebElement navbarCheckoutButton;
-    @FindBy (xpath = "//nav[@id='top']//span[text()='My Account']")
-    private WebElement navbarMyAccountButton;
-
-    @FindBy (css = ".dropdown-menu.dropdown-menu-right")
-    private WebElement myAccountDropdownMenu;
-    //TODO - add element for my account dropdown stuff and check if logout exists
-
-    // -----------------------
-    // Shopping cart menu
-    @FindBy (css = "span#cart-total")
-    private WebElement searchShoppingCartButton; //Shopping cart button next to search. To more clearly distinguish it from the button in the navbar
-    // TODO - add the shopping cart button webelement and its buttnos like checkout and some way to assert all items shown in it are correct
-    @FindBy (css = ".dropdown-menu.pull-right") // I dislike this, but I don't see any other way to do it.
-    private WebElement shoppingCartOpenMenu;
-    // not sure what a better method here to select these two would be
-    //also would it be better to do it as a child of it?
-    @FindBy (xpath = "//ul[@class='dropdown-menu pull-right']//a[@href='https://www.demoshop24.com/index.php?route=checkout/cart']")
-    private WebElement shoppingCartMenuViewCart;
-    @FindBy (xpath = "//ul[@class='dropdown-menu pull-right']//a[@href='https://www.demoshop24.com/index.php?route=checkout/checkout']")
-    private WebElement shoppingCartMenuCheckout;
+    @FindBy (css="div.radio input")
+    private List<WebElement> checkoutOptionsRadio;
+    @FindBy (css="input#button-account")
+    private WebElement continueButtonS1;
 
 
-    // ---------------------------
-    // Featured
-    @FindBy (xpath = "//div[@class='row']//span[text()='Add to Cart']") // here the first is a macbook
-    private List<WebElement> featuredItemsButtons;
-
-    @FindBy (xpath = "//button[@id='button-cart' and text()='Add to Cart']")
-    private WebElement itemPageAddToCartButton;
-
-    // --------------
-
-    //TODO - all checkout interaction and stuff
-
-    public void openShoppingCartPageViaNavbar() {
-        navbarShoppingCartButton.click();
+    // -------------
+    // Billing details page
+    @FindBy (css="input#input-payment-firstname")
+    private WebElement firstNameInput;
+    @FindBy (css="input#input-payment-lastname")
+    private WebElement lastNameInput;
+    @FindBy (css="input#input-payment-email")
+    private WebElement emailInput;
+    @FindBy (css = "input#input-payment-telephone")
+    private WebElement telephoneInput;
+    @FindBy (css = "input#input-payment-address-1")
+    private WebElement adress1Input;
+    @FindBy (css="input#input-payment-city")
+    private WebElement cityInput;
+    @FindBy (css="input#input-payment-postcode")
+    private WebElement postCodeInput;
+    @FindBy (css="select#input-payment-zone")
+    private WebElement regionSelect;
+    public Select getRegionSelect(){
+        return new Select(regionSelect);
     }
-    public void openCheckoutPageViaNavbar() {
-        navbarCheckoutButton.click();
+    @FindBy (css="input#button-guest")
+    private WebElement continueButtonS2;
+
+    // ---------------
+    // Payment page
+
+    @FindBy (css="input#button-payment-method")
+    private WebElement continueButtonS3;
+
+    @FindBy (css="input[type='checkbox'][name='agree']")
+    private WebElement agreeTOSCheckbox;
+
+    @FindBy (css="div.alert.alert-danger.alert-dismissible")
+    private WebElement paymentError;
+
+    public void clickAgreeTOSCheckbox(){
+        agreeTOSCheckbox.click();
     }
 
-    public void addFirstFeaturedItem(){
-        featuredItemsButtons.get(0).click();
+
+    public void selectIndexCheckoutOptionsRadio(String sIndex){
+        int index = Integer.parseInt(sIndex);
+        checkoutOptionsRadio.get(index).click();
     }
 
-    public void addItemToCartFromPage() {
-        itemPageAddToCartButton.click();
+    public void clickContinueS1(){
+        continueButtonS1.click();
+    }
+    public void clickContinueS2() {
+        continueButtonS2.click();
     }
 
+    public void clickContinueS3(){
+        continueButtonS3.click();
+    }
+
+    public void selectIndexRegion(String sIndex){
+        regionSelect.click();
+        int index = Integer.parseInt(sIndex);
+        getRegionSelect().selectByIndex(index);
+        regionSelect.click();
+    }
+
+    public void enterFirstName(String firstName){
+        firstNameInput.sendKeys(firstName);
+    }
+    public void enterLastName(String lastName){
+        lastNameInput.sendKeys(lastName);
+    }
+    public void enterEmail(String email){
+        emailInput.sendKeys(email);
+    }
+    public void enterTelephone(String telephone){
+        telephoneInput.sendKeys(telephone);
+    }
+    public void enterAdress1(String adress1){
+        adress1Input.sendKeys(adress1);
+    }
+    public void enterCity(String city){
+        cityInput.sendKeys(city);
+    }
+    public void enterPostCode(String postCode){
+        postCodeInput.sendKeys(postCode);
+    }
+
+    public String getPaymentErrorText(){
+        return paymentError.getText();
+    }
 }
+

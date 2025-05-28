@@ -14,4 +14,4 @@ Feature: Checkout via navbar
     And I click Add to cart
     And I click checkout via navbar
     And I assert I am on the shopping cart page
-    And I assert that I see empty cart text: "Your shopping cart is empty!"
+    And I assert that I received error: "Products marked with *** are not available in the desired quantity or not in stock!"
