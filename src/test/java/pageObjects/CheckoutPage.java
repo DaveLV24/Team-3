@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class CheckoutPage {
     //TODO - probably move these to a seperate file
     public String mainPageUrl ="https://www.demoshop24.com/index.php?route=common/home";
@@ -49,8 +51,8 @@ public class CheckoutPage {
 
     // ---------------------------
     // Featured
-    @FindBy (xpath = "//div[@class='row']//span[text()='Add to Cart'][1]") // here its a macbook
-    private WebElement firstFeaturedItemAddToCartButton;
+    @FindBy (xpath = "//div[@class='row']//span[text()='Add to Cart']") // here the first is a macbook
+    private List<WebElement> featuredItemsButtons;
 
     @FindBy (xpath = "//button[@id='button-cart' and text()='Add to Cart']")
     private WebElement itemPageAddToCartButton;
@@ -64,6 +66,14 @@ public class CheckoutPage {
     }
     public void openCheckoutPageViaNavbar() {
         navbarCheckoutButton.click();
+    }
+
+    public void addFirstFeaturedItem(){
+        featuredItemsButtons.get(0).click();
+    }
+
+    public void addItemToCartFromPage() {
+        itemPageAddToCartButton.click();
     }
 
 }
