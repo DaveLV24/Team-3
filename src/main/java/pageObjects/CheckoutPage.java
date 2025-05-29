@@ -55,25 +55,53 @@ public class CheckoutPage {
     @FindBy(id = "collapse-payment-method")
     private WebElement paymentMethodSection;
 
-    public void openCheckoutPage() {
-        navigationCheckoutButton.click();
-    }
-
     @FindBy(how = How.XPATH, using = "//input[@name='account' and @value='guest']")
     private WebElement guestRadioButton;
 
     @FindBy(how = How.ID, using = "button-account")
     private WebElement continueButtonCO;
-
-
-    @FindBy (css="input#button-register")
+    @FindBy(css="input#button-register")
     private WebElement continueButtonABD;
+    @FindBy(how = How.ID, using ="button-payment-address")
+    private WebElement continueButtonBD;
 
     @FindBy(how = How.XPATH, using = "//input[@name='account' and @value='register']")
     private WebElement registerRadioButton;
 
     @FindBy(name = "agree")
     private WebElement privacyPolicyCheckbox;
+
+    @FindBy(how = How.CSS, using = "div.alert.alert-danger.alert-dismissible")
+    private WebElement loginWarningMessage;
+
+    @FindBy(how = How.XPATH, using = "//input[@name='payment_address' and @value='existing']")
+    private WebElement existingAddressRadio;
+
+    @FindBy(how = How.NAME, using = "address_id")
+    private WebElement addressDropdown;
+
+    @FindBy(how = How.XPATH, using = "//input[@name='payment_address' and @value='new']")
+    private WebElement newAddressRadio;
+
+    public WebElement getExistingAddressRadio() {
+        return existingAddressRadio;
+    }
+
+    public WebElement getNewAddressRadio() {
+        return newAddressRadio;
+    }
+
+    public WebElement getAddressDropdown() {
+        return addressDropdown;
+    }
+
+    public WebElement getLoginWarningMessage() {
+        return loginWarningMessage;
+    }
+
+    public void openCheckoutPage() {
+        navigationCheckoutButton.click();
+    }
 
     public WebElement getPaymentMethodSection() {
         return paymentMethodSection;
@@ -94,6 +122,11 @@ public class CheckoutPage {
     }
     public void clickContinueABD() {
         continueButtonABD.click();
+    }
+    public void clickContinueBD() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(continueButtonBD));
+        continueButtonBD.click();
     }
 
     public void enterCredentials(Map<String, String> creds) {
@@ -121,6 +154,34 @@ public class CheckoutPage {
         zone.selectByVisibleText(creds.get("Region / State"));
     }
 
+    public void enterNewAddress(Map<String, String> addr) {
+        firstNameInput.sendKeys(addr.get("First Name"));
+        lastNameInput.sendKeys(addr.get("Last Name"));
+        String company = addr.get("Company");
+        if (company != null && !company.trim().isEmpty()) {
+            companyInput.sendKeys(company);
+        }
+        address1Input.sendKeys(addr.get("Address 1"));
+        String address2 = addr.get("Address 2");
+        if (address2 != null && !address2.trim().isEmpty()) {
+            address2Input.sendKeys(address2);
+        }
+        cityInput.sendKeys(addr.get("City"));
+        String postcode = addr.get("Post Code");
+        if (postcode != null && !postcode.trim().isEmpty()) {
+            postcodeInput.sendKeys(postcode);
+        }
+
+        Select country = new Select(countrySelect);
+        country.selectByVisibleText(addr.get("Country"));
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(zoneSelect));
+
+        Select zone = new Select(zoneSelect);
+        zone.selectByVisibleText(addr.get("Region / State"));
+    }
+
     public void agreePrivacyPolicy() {
         if (!privacyPolicyCheckbox.isSelected()) {
             privacyPolicyCheckbox.click();
@@ -129,7 +190,6 @@ public class CheckoutPage {
 
     public void waitForPaymentMethodSection() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // Ждём, пока контейнер секции станет видимым
         wait.until(ExpectedConditions.visibilityOf(paymentMethodSection));
     }
 
