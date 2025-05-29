@@ -6,12 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
-
 public class ShoppingCartPage {
     //TODO - probably move these to a seperate file
-    public String mainPageUrl ="https://www.demoshop24.com/index.php?route=common/home";
-    public String shoppingCartPageUrl = "https://www.demoshop24.com/index.php?route=checkout/cart";
+    public String pageUrl = "https://www.demoshop24.com/index.php?route=checkout/cart";
 
     public ShoppingCartPage(WebDriver driver) {
         PageFactory.initElements(driver, this);

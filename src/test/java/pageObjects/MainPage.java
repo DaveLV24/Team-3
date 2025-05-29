@@ -14,6 +14,9 @@ public class MainPage {
             PageFactory.initElements(driver, this);
         }
     }
+
+    public String pageUrl ="https://www.demoshop24.com/index.php?route=common/home";
+
                     // -----------------------
                     // Shopping cart menu
                     @FindBy(css = "span#cart-total")

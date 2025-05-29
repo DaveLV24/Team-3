@@ -9,6 +9,8 @@ Feature: Checkout via shopping cart page
     And I click on shopping cart in the navbar
     Then I click checkout
     And I select "1" by index in the radio menu
+    #From this point, the number after continue specifies the current Step of checkout. I.e. checkout 1 means it is for the first step of checkout.
+    # So it would be the continue button for "Step 1: Checkout Options"
     And I click continue1
     Then I enter the following details:
     | first_name   | Test            |
@@ -26,10 +28,11 @@ Feature: Checkout via shopping cart page
     And I click continue3
     And I see Step 3 warning: "Payment method required!"
     #I can not implement these steps as they do not exist in the webapp, therefore I am not able to define selectors for them :)
-#    Then I select Bank as payment method
-#    Then I click continue
-#    And I assert my checkout information is correct
-#    And I click continue
+    # Because of that, I throw an error
+    Then I select Bank as payment method
+    Then I click continue3
+    And I assert my checkout information is correct
+    And I click continue
 
   Scenario: TC-002 Going to checkout from page with an out of stock item
     When I go to "https://www.demoshop24.com/index.php?route=product/product&product_id=49&"

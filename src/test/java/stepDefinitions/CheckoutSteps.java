@@ -2,10 +2,7 @@ package stepDefinitions;
 
 import hooks.*;
 import io.cucumber.java.en.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import pageObjects.CheckoutPage;
 import pageObjects.MainPage;
 import pageObjects.NavbarPageObject;
@@ -14,15 +11,14 @@ import pageObjects.ShoppingCartPage;
 import java.time.Duration;
 import java.util.Map;
 
-import static hooks.Hooks.driver;
 import static org.junit.Assert.*;
 
 public class CheckoutSteps {
-    private WebDriver driver;
-    private ShoppingCartPage shoppingCartPage;
-    private CheckoutPage checkoutPage;
-    private NavbarPageObject navbarPageObject;
-    private MainPage mainPage;
+    private final WebDriver driver;
+    private final ShoppingCartPage shoppingCartPage;
+    private final CheckoutPage checkoutPage;
+    private final NavbarPageObject navbarPageObject;
+    private final MainPage mainPage;
     public CheckoutSteps() {
         this.driver = Hooks.driver;
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
@@ -35,23 +31,22 @@ public class CheckoutSteps {
 
     @Given("^the user is on the demoshop website$")
     public void theUserIsOnTheDemoshopWebsite() {
-        driver.get(shoppingCartPage.mainPageUrl);
+        driver.get(mainPage.pageUrl);
     }
 
     @And("^the user is not logged in$")
     public void theUserIsNotLoggedIn() {
-        // i dislike this method of checking, but oh well ig
+        // i dislike this method of checking, but oh well ig. At least it throws an error if the user is not logged in.
         driver.get("https://www.demoshop24.com/index.php?route=account/account");
         assertEquals("https://www.demoshop24.com/index.php?route=account/login",driver.getCurrentUrl());
 
-        driver.get(shoppingCartPage.mainPageUrl);
-        // TODO - ig implement this better
+        driver.get(mainPage.pageUrl);
     }
 
     @And("the user has an empty shopping cart")
     public void theUserHasAnEmptyShoppingCart() {
-//        driver.get(checkoutPage.shoppingCartPageUrl);
-        // TODO - implement
+        driver.get(shoppingCartPage.pageUrl);
+        iAssertThatISeeEmptyCartText("Your shopping cart is empty!");
     }
 
 
@@ -62,7 +57,7 @@ public class CheckoutSteps {
     @And("I click on shopping cart in the navbar")
     public void iClickOnShoppingCartInTheNavbar() {
         navbarPageObject.openShoppingCartPage();
-        assertEquals(shoppingCartPage.shoppingCartPageUrl, driver.getCurrentUrl());
+        assertEquals(shoppingCartPage.pageUrl, driver.getCurrentUrl());
     }
 
     @When("I go to {string}")
@@ -103,7 +98,7 @@ public class CheckoutSteps {
 
     @And("I assert that I am on the home page")
     public void iAssertThatIAmOnTheHomePage() {
-        assertEquals(shoppingCartPage.mainPageUrl, driver.getCurrentUrl());
+        assertEquals(mainPage.pageUrl, driver.getCurrentUrl());
     }
 
 
@@ -114,12 +109,12 @@ public class CheckoutSteps {
 
     @And("I assert I am on the checkout page")
     public void iAssertIAmOnTheCheckoutPage() {
-        assertEquals(checkoutPage.checkoutPageUrl, driver.getCurrentUrl());
+        assertEquals(checkoutPage.pageUrl, driver.getCurrentUrl());
     }
 
     @And("I assert I am on the shopping cart page")
     public void iAssertIAmOnTheShoppingCartPage() {
-        assertEquals(shoppingCartPage.shoppingCartPageUrl, driver.getCurrentUrl());
+        assertEquals(shoppingCartPage.pageUrl, driver.getCurrentUrl());
     }
 
     @And("I select {string} by index in the radio menu")
@@ -165,8 +160,8 @@ public class CheckoutSteps {
 
     @And("I see Step 3 warning: {string}")
     public void iSeeStepWarning(String warningText) {
-        // the sleep is here because the warnings take a while to update
         try {
+            // the sleep is here because the warnings take a while to update
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -174,4 +169,20 @@ public class CheckoutSteps {
         // doing contains here because of the char i cant detect
         assertTrue(checkoutPage.getPaymentErrorText().contains(warningText));
     }
+
+    @Then("I select Bank as payment method")
+    public void iSelectBankAsPaymentMethod() {
+        // No clue how to implement this as it's not implemented within the page. Just throwing an error to show that the test does not pass.
+        fail();
+    }
+
+    // This was for another test that I was going to help Kirils with, but he managed to do it. Keeping this in case I need it.
+//    @And("the user is logged in as {string} , {string}")
+//    public void theUserIsLoggedInAs(String email, String password) {
+//        driver.get("https://www.demoshop24.com/index.php?route=account/login");
+//        driver.findElement(By.id("input-email")).sendKeys(email);
+//        driver.findElement(By.id("input-password")).sendKeys(password);
+//        driver.findElement(By.cssSelector("input.btn.btn-primary[value='Login']")).click();
+//        driver.get(shoppingCartPage.mainPageUrl);
+//    }
 }

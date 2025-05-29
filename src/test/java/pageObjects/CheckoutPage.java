@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class CheckoutPage {
-    public String checkoutPageUrl = "https://www.demoshop24.com/index.php?route=checkout/checkout";
+    public String pageUrl = "https://www.demoshop24.com/index.php?route=checkout/checkout";
     public CheckoutPage(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
