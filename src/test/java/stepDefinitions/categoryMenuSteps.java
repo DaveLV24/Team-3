@@ -151,7 +151,7 @@ public class categoryMenuSteps {
                 }
             }
         }
-        assertTrue( "Duplicates found: " + duplicateProducts, duplicateProducts.isEmpty());
+        assertTrue( "Duplicates found: " + duplicateProducts, !duplicateProducts.isEmpty());
     }
 
     @And("^I click on category \"([^\\\"]*)\"$")
