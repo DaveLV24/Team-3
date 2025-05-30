@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
-public class CheckoutPage {
+public class CheckoutRDPage {
 
     WebDriver driver;
     WebDriverWait wait;
@@ -17,7 +17,7 @@ public class CheckoutPage {
     By emptyCartMessage = By.xpath("//div[@id='content']//p[contains(text(), 'Your shopping cart is empty!')]");
     By outOfStockErrorMessage = By.cssSelector(".alert.alert-danger");
 
-    public CheckoutPage(WebDriver driver) {
+    public CheckoutRDPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(11));
     }

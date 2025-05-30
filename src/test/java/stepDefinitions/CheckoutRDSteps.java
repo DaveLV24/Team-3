@@ -5,18 +5,18 @@ import io.cucumber.java.en.*;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import pageObjects.HomePage;
-import pageObjects.CheckoutPage;
+import pageObjects.CheckoutRDPage;
 
-public class CheckoutSteps {
+public class CheckoutRDSteps {
 
     private WebDriver driver;
     private HomePage homePage;
-    private CheckoutPage checkoutPage;
+    private CheckoutRDPage checkoutRDPage;
 
-    public CheckoutSteps() {
+    public CheckoutRDSteps() {
         this.driver = Hooks.driver;
         homePage = new HomePage(driver);
-        checkoutPage = new CheckoutPage(driver);
+        checkoutRDPage = new CheckoutRDPage(driver);
     }
 
     @Given("the user is on the homepage")
@@ -26,18 +26,18 @@ public class CheckoutSteps {
 
     @Then("the user should not be logged in")
     public void verifyUserNotLoggedIn() {
-        Assert.assertFalse("User is unexpectedly logged in!", checkoutPage.isUserLoggedIn());
+        Assert.assertFalse("User is unexpectedly logged in!", checkoutRDPage.isUserLoggedIn());
     }
 
 
     @When("the user clicks on the Checkout link")
     public void userClicksOnCheckout() {
-        checkoutPage.clickCheckoutLink();
+        checkoutRDPage.clickCheckoutLink();
     }
 
     @Then("the user should see an empty cart message")
     public void verifyEmptyCartMessage() {
-        String message = checkoutPage.getEmptyCartMessage();
+        String message = checkoutRDPage.getEmptyCartMessage();
         Assert.assertTrue("Expected empty cart message not found", message.contains("Your shopping cart is empty!"));
     }
 
@@ -53,7 +53,7 @@ public class CheckoutSteps {
 
     @Then("the user should see an out of stock error message")
     public void verifyOutOfStockErrorMessage() {
-        String message = checkoutPage.getOutOfStockErrorMessage();
+        String message = checkoutRDPage.getOutOfStockErrorMessage();
         Assert.assertTrue("Out of stock message not found!",
                 message.contains("Products marked with *** are not available in the desired quantity or not in stock!"));
     }
@@ -92,7 +92,7 @@ public class CheckoutSteps {
 
     @Then("the user should see an out of stock error message on the cart page")
     public void verifyOutOfStockErrorMessageOnCartPage() {
-        String message = checkoutPage.getOutOfStockErrorMessage();
+        String message = checkoutRDPage.getOutOfStockErrorMessage();
         Assert.assertTrue("Expected out of stock error message not found!",
                 message.contains("Products marked with *** are not available in the desired quantity or not in stock!"));
     }
