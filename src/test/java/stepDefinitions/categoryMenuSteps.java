@@ -153,7 +153,6 @@ public class categoryMenuSteps {
         }
         assertTrue( "Duplicates found: " + duplicateProducts, !duplicateProducts.isEmpty());
     }
-
     @And("^I click on category \"([^\\\"]*)\"$")
     public void iClickOnCategory(String category) throws Throwable {
         driver.findElement(By.xpath("//a[text()='" + category +"']")).click();
