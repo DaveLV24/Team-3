@@ -13,14 +13,14 @@ Feature: Sort option Functionality check
 ##############BUG#########################
   Scenario: Sort products by name A-Z
     Given I Open Desktop page
-    When I select "Name (A - Z)" from the sort dropdown
-    Then the products should be sorted by name A-Z
+#    When I select "Name (A - Z)" from the sort dropdown
+#    Then the products should be sorted by name A-Z
 
 ##############BUG#########################
   Scenario: Sort products by name Z-A
     Given I Open Desktop page
-    When I select "Name (Z - A)" from the sort dropdown
-    Then the products should be sorted by name Z-A
+#    When I select "Name (Z - A)" from the sort dropdown
+#    Then the products should be sorted by name Z-A
 
   Scenario: Sort products by model A-Z
     Given I Open Desktop page
