@@ -152,6 +152,7 @@ public class categoryMenuSteps {
             }
         }
         assertTrue( "Duplicates found: " + duplicateProducts, !duplicateProducts.isEmpty());
+        System.out.println("There were duplicates products in tested categories :"  + duplicateProducts);
     }
     @And("^I click on category \"([^\\\"]*)\"$")
     public void iClickOnCategory(String category) throws Throwable {
