@@ -31,7 +31,6 @@ public class categoryMenuSteps {
     }
 
     public categoryMenuSteps() {
-
         this.driver = Hooks.driver;
     }
 
