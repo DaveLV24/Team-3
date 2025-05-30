@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.CheckoutPage;
+import pageObjects.CheckoutPageKA;
 import pageObjects.NavigationBarSection;
 import io.cucumber.datatable.DataTable;
 import pageObjects.RegisterPage;
@@ -25,14 +25,14 @@ import java.util.Map;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class CheckoutSteps {
+public class CheckoutStepsKA {
     private WebDriver driver;
-    private CheckoutPage checkoutPage;
+    private CheckoutPageKA checkoutPage;
     private RegisterPage registerPage;
     private NavigationBarSection navigationBarSection;
-    public CheckoutSteps() {
+    public CheckoutStepsKA() {
         this.driver = Hooks.driver;
-        checkoutPage = new CheckoutPage(driver);
+        checkoutPage = new CheckoutPageKA(driver);
         navigationBarSection = new NavigationBarSection(driver);
         registerPage = new RegisterPage(driver);
     }

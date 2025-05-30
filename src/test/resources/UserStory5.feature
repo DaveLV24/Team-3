@@ -14,7 +14,8 @@ Feature: Checkout process
     And I enter credentials on Checkout Page
       | First Name       | Test                       |
       | Last Name        | Test                       |
-      | E-Mail           | newtestmail102@testing.com |
+      #This field has to be changed every time before running this test
+      | E-Mail           | newtestmail105@testing.com |
       | Telephone        | 12345678                   |
       | Password         | test                       |
       | Password Confirm | test                       |
@@ -35,7 +36,8 @@ Feature: Checkout process
     And I enter credentials on Register Page
       | First Name       | Test                       |
       | Last Name        | Test                       |
-      | E-Mail           | newtestmail021@testing.com |
+      #This field has to be changed every time before running this test
+      | E-Mail           | newtestmail024@testing.com |
       | Telephone        | 12345678                   |
       | Password         | test2Test$^*@fHDI          |
       | Password Confirm | test2Test$^*@fHDI          |
@@ -101,10 +103,10 @@ Feature: Checkout process
       | veteki9559@ofular.com | 1234     |
     Then I select I want to use a new address
     And I enter New Address
-      | First Name       | Kirils          |
-      | Last Name        | Aleksejevs      |
+      | First Name       | Marks           |
+      | Last Name        | Tvens           |
       | Company          |                 |
-      | Address 1        | Iela 1          |
+      | Address 1        | Iela 5          |
       | Address 2        |                 |
       | City             | Daugavpils      |
       | Post Code        |                 |

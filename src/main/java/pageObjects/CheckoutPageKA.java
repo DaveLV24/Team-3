@@ -12,10 +12,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.Map;
 
-public class CheckoutPage {
+public class CheckoutPageKA {
     WebDriver driver;
 
-    public CheckoutPage(WebDriver driver) {
+    public CheckoutPageKA(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
