@@ -32,7 +32,6 @@ public class sortByStepsSample {
         Select select = new Select(sortDropdown);
         select.selectByVisibleText(sortOption);
 
-        // Wait until URL reflects sorting by checking "sort=" param with expected order (optional: refine)
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.urlContains("sort="));
     }
@@ -43,10 +42,9 @@ public class sortByStepsSample {
 
         List<Double> prices = new ArrayList<>();
         for (WebElement priceEl : priceElements) {
-            String fullPriceText = priceEl.getText().split("\n")[0].trim(); // get only the first line
+            String fullPriceText = priceEl.getText().split("\n")[0].trim();
 
-            // Clean the price (remove currency symbol and commas)
-            String cleaned = fullPriceText.replaceAll("[^\\d.]", ""); // keep digits and dot
+            String cleaned = fullPriceText.replaceAll("[^\\d.]", "");
 
             try {
                 prices.add(Double.parseDouble(cleaned));
@@ -55,7 +53,6 @@ public class sortByStepsSample {
             }
         }
 
-        // Validate prices are sorted in ascending order
         List<Double> sorted = new ArrayList<>(prices);
         Collections.sort(sorted);
         assertEquals("Prices are not sorted in ascending order", sorted, prices);
@@ -67,8 +64,8 @@ public class sortByStepsSample {
 
         List<Double> prices = new ArrayList<>();
         for (WebElement priceEl : priceElements) {
-            String fullPriceText = priceEl.getText().split("\n")[0].trim(); // get only the first line
-            String cleaned = fullPriceText.replaceAll("[^\\d.]", ""); // remove currency and extra symbols
+            String fullPriceText = priceEl.getText().split("\n")[0].trim();
+            String cleaned = fullPriceText.replaceAll("[^\\d.]", "");
 
             try {
                 prices.add(Double.parseDouble(cleaned));
@@ -77,7 +74,6 @@ public class sortByStepsSample {
             }
         }
 
-        // Copy and sort in descending order
         List<Double> sorted = new ArrayList<>(prices);
         sorted.sort(Collections.reverseOrder());
 
@@ -119,17 +115,14 @@ public class sortByStepsSample {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".caption h4 a")));
 
-        // Get product names as list of strings
         List<WebElement> productElements = driver.findElements(By.cssSelector(".caption h4 a"));
         List<String> productNames = productElements.stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
 
-        // Create a sorted copy of the product names
         List<String> sortedNames = new ArrayList<>(productNames);
         Collections.sort(sortedNames);  // Sort A-Z
 
-        // Assert original list is equal to sorted list
         Assert.assertEquals("Products are not sorted by name A-Z", sortedNames, productNames);
 
         driver.quit();
@@ -140,18 +133,15 @@ public class sortByStepsSample {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".caption h4 a")));
 
-        // Get product names as list of strings
         List<WebElement> productElements = driver.findElements(By.cssSelector(".caption h4 a"));
         List<String> productNames = productElements.stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
 
-        // Create a sorted copy of the product names
         List<String> sortedNames = new ArrayList<>(productNames);
-        Collections.sort(sortedNames);  // Sort A-Z
-        Collections.reverse(sortedNames);  // Sort A-Z
+        Collections.sort(sortedNames);
+        Collections.reverse(sortedNames);
 
-        // Assert original list is equal to sorted list
         Assert.assertEquals("Products are not sorted by name Z-A", sortedNames, productNames);
 
         driver.quit();
@@ -191,7 +181,7 @@ public class sortByStepsSample {
 
         }
             List<Integer> sortedRatings = new ArrayList<>(ratings);
-            Collections.sort(sortedRatings); // Lowest to Highest
+            Collections.sort(sortedRatings);
 
             Assert.assertEquals("Products are not sorted by Rating (Lowest)", sortedRatings, ratings);
 

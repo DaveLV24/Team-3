@@ -57,7 +57,6 @@ public class shopCartStepsSample {
         WebElement updateButton = driver.findElement(By.cssSelector("button.btn.btn-primary[data-original-title='Update']"));
         updateButton.click();
 
-        // Wait for cart to reflect updated quantity (e.g., subtotal or total changes)
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(
                 ExpectedConditions.attributeToBe(quantityInput, "value", quantity.toString())
         );

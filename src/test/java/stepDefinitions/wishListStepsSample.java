@@ -68,11 +68,9 @@ public class wishListStepsSample {
     public void iOpenTheBrowsePage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Wait until the link is clickable, then click
         WebElement homeLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h1/a[text()='Testing Demo Shop']")));
         homeLink.click();
 
-        // Optionally wait for some element on the Browse Home page to confirm navigation
         wait.until(ExpectedConditions.urlContains("route=common/home"));
 
 
@@ -80,9 +78,8 @@ public class wishListStepsSample {
 
     @Then("the product should be visible in the Wish List")
     public void theProductShouldBeVisibleInTheWishList() {
-        // Click the "Wish List" link
         List<WebElement> wishlistLinks = driver.findElements(By.cssSelector("span.hidden-xs.hidden-sm.hidden-md"));
-        WebElement wishlistLink = wishlistLinks.get(3); // 4th element
+        WebElement wishlistLink = wishlistLinks.get(3);
         wishlistLink.click();
 
         WebElement productNameCell = new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -104,15 +101,11 @@ public class wishListStepsSample {
     public void removeFromWishList() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Wait for and find the remove button (red "X")
         WebElement removeButton = wait.until(ExpectedConditions.elementToBeClickable(
                 By.cssSelector("a.btn-danger[data-original-title='Remove']"))
         );
 
-        // Click the remove button
         removeButton.click();
-
-        // Optionally, wait for the item to disappear
         wait.until(ExpectedConditions.invisibilityOf(removeButton));
     }
 

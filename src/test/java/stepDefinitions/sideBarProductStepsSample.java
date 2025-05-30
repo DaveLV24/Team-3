@@ -102,7 +102,7 @@ public class sideBarProductStepsSample {
         List<WebElement> products = driver.findElements(By.cssSelector(".product-layout.product-grid"));
 
         WebElement activeCategory = driver.findElement(By.cssSelector(".list-group .active"));
-        String text = activeCategory.getText(); // Example: "Desktops (12)"
+        String text = activeCategory.getText();
 
 
         int expectedCount = Integer.parseInt(text.replaceAll(".*\\((\\d+)\\).*", "$1"));
@@ -164,7 +164,7 @@ public class sideBarProductStepsSample {
     public void theProductShouldHaveNameImagePrice() {
         List<WebElement> h1Elements = Hooks.driver.findElements(By.tagName("h1"));
         List<WebElement> images = Hooks.driver.findElements(By.cssSelector("#content .thumbnails img"));
-        WebElement price = Hooks.driver.findElement(By.cssSelector(".list-unstyled h2, .price")); // fallback selector
+        WebElement price = Hooks.driver.findElement(By.cssSelector(".list-unstyled h2, .price"));
         WebElement name = h1Elements.get(1);
 
         assertTrue(name.isDisplayed());
