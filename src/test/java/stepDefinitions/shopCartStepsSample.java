@@ -23,6 +23,9 @@ public class shopCartStepsSample {
     @Given("^I Open home page$")
     public void theUserIsOnTheDesktopPage() throws Throwable {
         driver.get("https://www.demoshop24.com/index.php?route=common/home");
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".product-thumb")));
     }
 
     @When("I add the first product to the cart")
