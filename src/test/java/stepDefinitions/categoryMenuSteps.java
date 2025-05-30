@@ -166,4 +166,19 @@ public class categoryMenuSteps {
         assertEquals("The number of products does not match the number in the subcategory", expectedProductCount, actualProductCount);
     }
 
+    @And("^I see that each subcategory has unique products$")
+    public void iSeeUniqueProductInSubcategory() throws Throwable {
+        Set<String> seenProducts = new HashSet<>();
+        Set<String> duplicateProducts = new HashSet<>();
+
+        for (Map.Entry<String, Set<String>> entry : categoryProducts.entrySet()) {
+            for (String product : entry.getValue()) {
+                if (!seenProducts.add(product)) {
+                    duplicateProducts.add(product);
+                }
+            }
+        }
+        assertTrue( "Duplicates found: " + duplicateProducts, duplicateProducts.isEmpty());
+    }
+
 }
