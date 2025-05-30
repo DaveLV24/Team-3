@@ -67,7 +67,7 @@
      And I check products on page "Cameras"
      And I click on category "Phones & PDAs"
      And I check products on page "Phones & PDAs"
-     And I see that each category has unique products
+     And I see that each subcategory has unique products
 
 
 
@@ -78,7 +78,7 @@
      And I check products on page "Mac"
      Then I Hover over "Desktops" category
      And I click on subcategory "PC"
-     And I see that each category has unique products
+     And I see that each subcategory has unique products
 
 
 
